@@ -10,8 +10,18 @@ const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const uploadMiddleware = multer({ dest: "uploads/" });
 const fs = require("fs");
+const dotenv = require("dotenv");
 
-const PORT = process.env.PORT || 4000
+dotenv.config();
+
+const PORT = process.env.PORT || 4000;
+
+const DB_URL = process.env.DB_URL;
+
+const connectionParams = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 
 const salt = bcrypt.genSaltSync(10);
 const secret = "asmasdnkadsnl2l1k2kafghsyabdasdu";
@@ -27,7 +37,15 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
-mongoose.connect("mongodb://localhost:27017/mern-blog");
+// mongoose.connect("mongodb://localhost:27017/mern-blog");
+mongoose
+  .connect(DB_URL, connectionParams)
+  .then(() => {
+    console.info("Connected to db");
+  })
+  .catch((e) => {
+    console.log("Error: ", e);
+  });
 
 app.get("/test", (req, res) => {
   res.json("test ok 2");
