@@ -34,7 +34,8 @@ const secret = "asmasdnkadsnl2l1k2kafghsyabdasdu";
 
 const corsOptions = {
   origin: "https://bitbrewery.netlify.app",
-  credentials: true, //access-control-allow-credentials:true
+  credentials: true,
+  methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
   optionSuccessStatus: 200,
 };
 
