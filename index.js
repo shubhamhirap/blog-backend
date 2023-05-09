@@ -26,8 +26,14 @@ const connectionParams = {
 const salt = bcrypt.genSaltSync(10);
 const secret = "asmasdnkadsnl2l1k2kafghsyabdasdu";
 
+// const corsOptions = {
+//   origin: "http://localhost:3000",
+//   credentials: true, //access-control-allow-credentials:true
+//   optionSuccessStatus: 200,
+// };
+
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://bitbrewery.netlify.app",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
