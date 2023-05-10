@@ -81,11 +81,7 @@ app.post("/login", async (req, res) => {
     //logged in
     jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
       if (err) throw err;
-      res.cookie("token", token, {
-        expires: new Date(Date.now() + 900000000),
-        httpOnly: false,
-        secure: true,
-      }).json({
+      res.cookie("token", token).json({
         id: userDoc._id,
         username,
       });
@@ -127,6 +123,7 @@ app.get("/post", async (req, res) => {
     .populate("author", ["name"])
     .sort({ createdAt: -1 })
     .limit(20);
+  
   res.json(posts);
 });
 
@@ -173,7 +170,6 @@ app.get("/post/:id", async (req, res) => {
 
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
-  console.log(token);
   jwt.verify(token, secret, {}, (err, info) => {
     if (err) throw err;
     res.json(info);
