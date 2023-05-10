@@ -33,7 +33,7 @@ const secret = "asmasdnkadsnl2l1k2kafghsyabdasdu";
 // };
 
 const corsOptions = {
-  origin: "https://bitbrewery.netlify.app",
+  origin: ["https://bitbrewery.netlify.app", "http://localhost:3000"],
   credentials: true,
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
   optionSuccessStatus: 200,
@@ -169,7 +169,7 @@ app.get("/post/:id", async (req, res) => {
 
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
-  console.log(token)
+  console.log(token);
   jwt.verify(token, secret, {}, (err, info) => {
     if (err) throw err;
     res.json(info);
