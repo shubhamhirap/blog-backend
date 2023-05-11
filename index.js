@@ -18,10 +18,10 @@ const PORT = process.env.PORT || 4000;
 
 const DB_URL = process.env.DB_URL;
 
-const connectionParams = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
+// const connectionParams = {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// };
 
 const salt = bcrypt.genSaltSync(10);
 const secret = "asmasdnkadsnl2l1k2kafghsyabdasdu";
@@ -46,7 +46,7 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 
 // mongoose.connect("mongodb://localhost:27017/mern-blog");
 mongoose
-  .connect(DB_URL, connectionParams)
+  .connect(DB_URL)
   .then(() => {
     console.info("Connected to db");
   })
@@ -123,7 +123,7 @@ app.get("/post", async (req, res) => {
     .populate("author", ["name"])
     .sort({ createdAt: -1 })
     .limit(20);
-  
+
   res.json(posts);
 });
 
